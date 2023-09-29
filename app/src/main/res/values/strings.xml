@@ -7,4 +7,23 @@
 
     <!-- Page de favoris -->
     <string name="favoris_page_item">Favoris</string>
+
+    <!-- Page d'ajout d'oeuvre d'art -->
+    <string name="add_page_return">&lt;&lt; Retour</string>
+    <string name="add_page_title">Ajouter une oeuvre d\'art</string>
+    <string name="add_page_image_input">Image</string>
+    <string name="add_page_name_input">Nom</string>
+    <string name="add_page_description_input">Description</string>
+
+    <string-array name="add_page_type_input">
+        <item>Type : Architecture</item>
+        <item>Type : Sculpture</item>
+        <item>Type : Peinture</item>
+        <item>Type : Musique</item>
+        <item>Type : Cinéma</item>
+        <item>Type : Jeu-vidéo</item>
+    </string-array>
+
+    <string name="add_page_submit_button">Envoyer</string>
+
 </resources>
