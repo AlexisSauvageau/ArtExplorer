@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- couleurs de l'application -->
+    <color name="background">#222222</color>
+    <color name="purple">#990CDB</color>
+    <color name="yellow">#EFDB28</color>
+
+    <!-- item de liste -->
+    <color name="grey">#D9D9D9</color>
+    <color name="lightblue">#86EEF5</color>
+    <color name="lightpurple">#D186F5</color>
+    <color name="lightgreen">#95F586</color>
+
+    <!-- barre de navigation -->
+    <color name="pink">#F0C3FF</color>
 </resources>

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ArtExplorer</string>
+
+    <!-- Page d'accueil -->
+    <string name="home_page_title">Explorer les œuvres d\'art</string>
 </resources>
