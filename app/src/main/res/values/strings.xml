@@ -3,4 +3,8 @@
 
     <!-- Page d'accueil -->
     <string name="home_page_title">Explorer les œuvres d\'art</string>
+    <string name="home_page_item">Accueil</string>
+
+    <!-- Page de favoris -->
+    <string name="favoris_page_item">Favoris</string>
 </resources>
