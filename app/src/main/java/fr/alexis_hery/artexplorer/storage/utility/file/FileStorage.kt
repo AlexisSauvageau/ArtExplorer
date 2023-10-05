@@ -2,6 +2,7 @@ package fr.alexis_hery.artexplorer.storage.utility.file
 
 import android.content.Context
 import fr.alexis_hery.artexplorer.storage.Storage
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
@@ -15,6 +16,8 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
 
     protected abstract fun create(obj: T): T
     protected abstract fun dataToString(data: HashMap<Int, T>): String
+
+    protected abstract fun dataToJSON(data: HashMap<Int, T>): JSONObject
     protected abstract fun stringToData(value: String): HashMap<Int, T>
 
     private fun read() {

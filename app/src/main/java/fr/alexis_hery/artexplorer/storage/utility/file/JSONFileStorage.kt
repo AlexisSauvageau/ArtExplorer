@@ -13,6 +13,12 @@ abstract class JSONFileStorage<T>(context: Context, name: String) : FileStorage<
         return json.toString()
     }
 
+    override fun dataToJSON(data: HashMap<Int, T>): JSONObject {
+        val json = JSONObject()
+        data.forEach{pair -> json.put("${pair.key}", objectToJson(pair.value))}
+        return json
+    }
+
     override fun stringToData(value: String): HashMap<Int, T> {
         val data = HashMap<Int, T>()
         val json = JSONObject(value)
