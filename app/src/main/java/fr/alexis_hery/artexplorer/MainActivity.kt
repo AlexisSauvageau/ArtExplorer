@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.alexis_hery.artexplorer.adapter.OeuvreAdapter
 
 class MainActivity : ComponentActivity() {
@@ -33,5 +34,19 @@ class MainActivity : ComponentActivity() {
 
         // créer la vue pour chaque élément
         oeuvreRecyclerView.adapter = OeuvreAdapter(applicationContext, lstOeuvres)
+
+        // récupérer la barre de navigation
+        val navigation = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+
+        navigation.setOnItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.favoris_page -> {
+                    val intent = Intent(applicationContext, FavorisActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }
