@@ -24,6 +24,9 @@ class MainActivity : ComponentActivity() {
         lstOeuvres.add(OeuvreModel("test.png", "La Joconde", "Tableau fait par Leonard de Vinci", "Peinture", false))
         lstOeuvres.add(OeuvreModel("test.png", "Star Wars", "Grande saga de films !", "Cinéma", true))
         lstOeuvres.add(OeuvreModel("test.png", "Le Sphinx", "Une oeuvre intemporelle", "Sculpture", true))
+        lstOeuvres.add(OeuvreModel("test.png", "Star Wars", "Grande saga de films !", "Cinéma", false))
+        lstOeuvres.add(OeuvreModel("test.png", "Le Sphinx", "Une oeuvre intemporelle", "Sculpture", true))
+        lstOeuvres.add(OeuvreModel("test.png", "La Joconde", "Tableau fait par Leonard de Vinci", "Peinture", false))
 
         // récupérer le recycler view
         val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)

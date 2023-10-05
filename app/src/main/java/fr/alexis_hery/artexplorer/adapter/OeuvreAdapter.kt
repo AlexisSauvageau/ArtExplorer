@@ -23,7 +23,6 @@ class OeuvreAdapter(
         val image = view.findViewById<ImageView>(R.id.oeuvre_image)            // image de l'oeuvre
         val name = view.findViewById<TextView>(R.id.oeuvre_title)              // titre de l'oeuvre
         val type = view.findViewById<TextView>(R.id.oeuvre_type)               // type d'oeuvre
-        val description = view.findViewById<TextView>(R.id.oeuvre_description) // description de l'oeuvre
         var liked = view.findViewById<ImageView>(R.id.star_icon)               // si l'oeuvre est likée
     }
 
@@ -40,7 +39,6 @@ class OeuvreAdapter(
 
         // holder.image.set(oeuvre.image)
         holder.name.text = oeuvre.name               // mettre à jour le nom
-        holder.description.text = oeuvre.description // mettre à jour la description
         holder.type.text = oeuvre.type               // mettre à jour le type
 
         // mettre à jour l'icône d'étoile si l'oeuvre est likée ou pas
