@@ -6,14 +6,12 @@
         android:id="@+id/home_page"
         android:title="@string/home_page_item"
         android:icon="@drawable/ic_home"
-        app:showAsAction="ifRoom"
-        android:iconTint="@color/pink"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/favoris_page"
         android:title="@string/favoris_page_item"
         android:icon="@drawable/ic_star"
-        app:showAsAction="ifRoom"
-        android:iconTint="@color/pink"/>
+        app:showAsAction="ifRoom"/>
 
 </menu>
