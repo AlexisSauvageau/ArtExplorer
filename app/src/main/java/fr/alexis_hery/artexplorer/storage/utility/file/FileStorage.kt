@@ -2,6 +2,7 @@ package fr.alexis_hery.artexplorer.storage.utility.file
 
 import android.content.Context
 import fr.alexis_hery.artexplorer.storage.Storage
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
@@ -13,8 +14,10 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     private var data = HashMap<Int, T>()
     private var nextId = 1
 
-    protected abstract fun create(id: Int, obj: T): T
+    protected abstract fun create(obj: T): T
     protected abstract fun dataToString(data: HashMap<Int, T>): String
+
+    protected abstract fun dataToJSON(data: HashMap<Int, T>): JSONObject
     protected abstract fun stringToData(value: String): HashMap<Int, T>
 
     private fun read() {
@@ -46,7 +49,7 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     }
 
     override fun insert(obj: T): Int {
-        data.put(nextId, create(nextId, obj))
+        data.put(nextId, create(obj))
         nextId++
         write()
         return nextId - 1
@@ -65,7 +68,7 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     }
 
     override fun update(id: Int, obj: T) {
-        data.put(id, create(id, obj))
+        data.put(id, create(obj))
         write()
     }
 
