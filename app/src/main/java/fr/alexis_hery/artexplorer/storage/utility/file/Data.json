@@ -1,0 +1,45 @@
+[
+  {
+  "image" : "test.png",
+  "name" : "La Joconde",
+  "description" : "Tableau fait par Leonard de Vinci",
+  "type" : "Peinture",
+  "liked" : false
+  },
+  {
+  "image" : "test.png",
+  "name" : "Star Wars",
+  "description" : "Grande saga de films !",
+  "type" : "Cinéma",
+  "liked" : true
+  },
+  {
+   "image" : "test.png",
+   "name" : "Le Sphinx",
+   "description" : "Une oeuvre intemporelle",
+   "type" : "Sculpture",
+   "liked" : true
+  },
+
+  {
+    "image" : "test.png",
+    "name" : "La Joconde",
+    "description" : "Tableau fait par Leonard de Vinci",
+    "type" : "Peinture",
+    "liked" : false
+  },
+  {
+    "image" : "test.png",
+    "name" : "Star Wars",
+    "description" : "Grande saga de films !",
+    "type" : "Cinéma",
+    "liked" : true
+  },
+  {
+    "image" : "test.png",
+    "name" : "Le Sphinx",
+    "description" : "Une oeuvre intemporelle",
+    "type" : "Sculpture",
+    "liked" : false
+  }
+]
