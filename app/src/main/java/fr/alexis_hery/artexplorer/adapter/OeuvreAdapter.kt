@@ -63,7 +63,7 @@ class OeuvreAdapter(
 
         // afficher la popup
         holder.colorBubble.setOnClickListener {
-            OeuvrePopup(context, oeuvre).show()
+            OeuvrePopup(holder.colorBubble.context, oeuvre).show()
         }
     }
 
