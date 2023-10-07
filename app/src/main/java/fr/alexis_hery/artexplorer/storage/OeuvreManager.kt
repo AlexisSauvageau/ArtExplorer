@@ -31,10 +31,11 @@ class OeuvreManager(private val context: Context) {
         return json
     }
 
-     fun loadDataFromAssets() {
+     private fun loadDataFromAssets() {
         try {
             val json = JSONObject(getJSONFromAssets()!!)
             val oeuvreTab = json.getJSONArray("Data")
+
 
             for (i in 0 until oeuvreTab.length()) {
                 val oeuvre = oeuvreTab.getJSONObject(i)
@@ -44,14 +45,13 @@ class OeuvreManager(private val context: Context) {
                 val type = oeuvre.getString("3")
                 val liked = oeuvre.getBoolean("4")
 
-                // Now add all the variables to the data model class and the data model class to the array list.
                 val oeuvreDetails = OeuvreModel(image, name, description, type, liked)
 
-                // add the details in the list
+
                 oeuvreList.add(oeuvreDetails)
             }
         } catch (e: JSONException) {
-            // Handle exception
+
             e.printStackTrace()
         }
     }
