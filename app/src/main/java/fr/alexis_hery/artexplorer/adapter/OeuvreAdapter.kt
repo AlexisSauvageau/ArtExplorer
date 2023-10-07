@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import fr.alexis_hery.artexplorer.OeuvreModel
+import fr.alexis_hery.artexplorer.OeuvrePopup
 import fr.alexis_hery.artexplorer.R
 
 class OeuvreAdapter(
-    private val context: Context,
+    val context: Context,
     private val lstOeuvres: List<OeuvreModel>
     ) : RecyclerView.Adapter<OeuvreAdapter.ViewHolder>() {
 
@@ -60,6 +61,10 @@ class OeuvreAdapter(
             holder.colorBubble.setBackgroundColor(ContextCompat.getColor(context, R.color.pink))
         }
 
+        // afficher la popup
+        holder.colorBubble.setOnClickListener {
+            OeuvrePopup(holder.colorBubble.context, oeuvre).show()
+        }
     }
 
     override fun getItemCount(): Int = lstOeuvres.size
