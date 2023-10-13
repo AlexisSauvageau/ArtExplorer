@@ -41,13 +41,14 @@ class OeuvreManager(private val context: Context) {
 
             for (i in 0 until oeuvreTab.length()) {
                 val oeuvre = oeuvreTab.getJSONObject(i)
-                val image = oeuvre.getString("0")
-                val name = oeuvre.getString("1")
-                val description = oeuvre.getString("2")
-                val type = oeuvre.getString("3")
-                val liked = oeuvre.getBoolean("4")
+                val id = oeuvre.getInt("0")
+                val image = oeuvre.getString("1")
+                val name = oeuvre.getString("2")
+                val description = oeuvre.getString("3")
+                val type = oeuvre.getString("4")
+                val liked = oeuvre.getBoolean("5")
 
-                val oeuvreDetails = OeuvreModel(image, name, description, type, liked)
+                val oeuvreDetails = OeuvreModel(id, image, name, description, type, liked)
 
 
                 oeuvreList.add(oeuvreDetails)

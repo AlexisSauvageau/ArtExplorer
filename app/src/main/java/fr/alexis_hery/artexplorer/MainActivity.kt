@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.alexis_hery.artexplorer.adapter.OeuvreAdapter
+import fr.alexis_hery.artexplorer.request.OeuvreRequest
 import fr.alexis_hery.artexplorer.storage.OeuvreManager
 
 class MainActivity : ComponentActivity() {
@@ -22,9 +23,9 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(applicationContext, AddOeuvreActivity::class.java)
             startActivity(intent)
         }
-        val data = OeuvreManager(this)
 
-        val lstOeuvres = data.oeuvreList
+        val data = OeuvreRequest(this)
+        val lstOeuvres = data.lstOeuvres
 
         // récupérer le recycler view
         val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)
