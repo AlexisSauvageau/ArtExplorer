@@ -11,9 +11,13 @@ import java.io.OutputStreamWriter
 abstract class FileStorage<T>(private val context: Context, name: String, extension: String) :
     Storage<T> {
 
-    private val fileName = "storage_$name.$extension"
+    private val fileName = "$name.$extension"
     private var data = HashMap<Int, T>()
     private var nextId = 1
+
+    init {
+        read()
+    }
 
     protected abstract fun create(id: Int, obj: T): T
     protected abstract fun dataToString(data: HashMap<Int, T>): String
@@ -22,7 +26,7 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     private fun read() {
         try {
             val input = context.openFileInput(fileName)
-            //println(context.filesDir)
+            println(context.filesDir)
             if (input != null) {
                 val builder = StringBuilder()
                 var bufferedReader = BufferedReader(InputStreamReader(input))

@@ -3,7 +3,7 @@ package fr.alexis_hery.artexplorer.storage.utility.file
 import android.content.Context
 import org.json.JSONObject
 
-abstract class JSONFileStorage<T>(context: Context, name: String) : FileStorage<T>(context, name, ".json") {
+abstract class JSONFileStorage<T>(context: Context, name: String) : FileStorage<T>(context, name, "json") {
     protected abstract fun objectToJson(id: Int, obj: T): JSONObject
     protected abstract fun jsonToObject(json: JSONObject): T
 

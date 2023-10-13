@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.alexis_hery.artexplorer.adapter.OeuvreAdapter
 import fr.alexis_hery.artexplorer.request.OeuvreRequest
-import fr.alexis_hery.artexplorer.storage.OeuvreManager
 
 class MainActivity : ComponentActivity() {
 
