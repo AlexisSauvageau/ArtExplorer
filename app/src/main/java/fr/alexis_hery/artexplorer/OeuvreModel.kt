@@ -8,7 +8,7 @@ class OeuvreModel(
     val name: String ,
     val description: String ,
     val type: String ,
-    val liked: Boolean
+    var liked: Boolean
 ){
     companion object {
         const val IMAGE = "image"

@@ -2,6 +2,7 @@ package fr.alexis_hery.artexplorer.storage
 
 import android.content.Context
 import fr.alexis_hery.artexplorer.OeuvreModel
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -9,6 +10,7 @@ import java.nio.charset.Charset
 
 class OeuvreManager(private val context: Context) {
     val oeuvreList: ArrayList<OeuvreModel> = ArrayList()
+    private val jsonFileName: String = "Data.json"
 
     init {
         loadDataFromAssets()
@@ -18,7 +20,7 @@ class OeuvreManager(private val context: Context) {
         var json: String?
         val charset: Charset = Charsets.UTF_8
         try {
-            val oeuvreJSONFILE = context.assets.open("Data.json")
+            val oeuvreJSONFILE = context.assets.open(jsonFileName)
             val size = oeuvreJSONFILE.available()
             val buffer = ByteArray(size)
             oeuvreJSONFILE.read(buffer)
@@ -52,6 +54,42 @@ class OeuvreManager(private val context: Context) {
             }
         } catch (e: JSONException) {
 
+            e.printStackTrace()
+        }
+    }
+
+    // fonction qui prend en paramètres un nom d'oeuvre, et qui like ou dislike l'oeuvre
+    fun modifyOeuvreByName(oeuvreName: String) {
+        // indice de l'oeuvre (-1 si elle n'est pas trouvée)
+        val oeuvreIndex = oeuvreList.indexOfFirst { it.name == oeuvreName }
+
+        // liker ou disliker l'oeuvre
+        if(oeuvreIndex != -1) {
+            oeuvreList[oeuvreIndex].liked = !oeuvreList[oeuvreIndex].liked
+        }
+
+        // mettre à jour les données
+        saveDataToJson()
+    }
+
+    // fonction qui sauvegarde les données modifiées dans le fichier json
+    fun saveDataToJson() {
+        val jsonArray = JSONArray()
+        for (oeuvre in oeuvreList) {
+            val jsonObject = JSONObject()
+            jsonObject.put("0", oeuvre.image)
+            jsonObject.put("1", oeuvre.name)
+            jsonObject.put("2", oeuvre.description)
+            jsonObject.put("3", oeuvre.type)
+            jsonObject.put("4", oeuvre.liked)
+            jsonArray.put(jsonObject)
+        }
+
+        try {
+            val jsonFile = context.openFileOutput(jsonFileName, Context.MODE_PRIVATE)
+            jsonFile.write(jsonArray.toString().toByteArray())
+            jsonFile.close()
+        } catch (e: IOException) {
             e.printStackTrace()
         }
     }

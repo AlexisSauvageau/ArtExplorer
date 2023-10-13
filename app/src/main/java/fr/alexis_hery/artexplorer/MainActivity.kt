@@ -20,8 +20,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         // bouton pour ajouter une nouvelle oeuvre d'art
         val addOeuvreBtn = findViewById<Button>(R.id.add_button)
         addOeuvreBtn.setOnClickListener {
@@ -32,24 +30,6 @@ class MainActivity : ComponentActivity() {
         val data = OeuvreManager(this)
 
         val lstOeuvres = data.oeuvreList
-
-
-        /*
-
-        val lstOeuvres = arrayListOf<OeuvreModel>()
-        lstOeuvres.add(OeuvreModel("test.png", "La Joconde", "Tableau fait par Leonard de Vinci", "Peinture", false))
-        lstOeuvres.add(OeuvreModel("test.png", "Star Wars", "Grande saga de films !", "Cinéma", true))
-        lstOeuvres.add(OeuvreModel("test.png", "Le Sphinx", "Une oeuvre intemporelle", "Sculpture", true))
-        lstOeuvres.add(OeuvreModel("test.png", "Star Wars", "Grande saga de films !", "Cinéma", false))
-        lstOeuvres.add(OeuvreModel("test.png", "Le Sphinx", "Une oeuvre intemporelle", "Sculpture", true))
-        lstOeuvres.add(OeuvreModel("test.png", "La Joconde", "Tableau fait par Leonard de Vinci", "Peinture", false))
-        */
-
-
-
-
-
-
 
         // récupérer le recycler view
         val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)

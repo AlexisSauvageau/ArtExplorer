@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.alexis_hery.artexplorer.OeuvreModel
 import fr.alexis_hery.artexplorer.OeuvrePopup
 import fr.alexis_hery.artexplorer.R
+import fr.alexis_hery.artexplorer.storage.OeuvreManager
 
 class OeuvreAdapter(
     val context: Context,
@@ -64,6 +65,20 @@ class OeuvreAdapter(
         // afficher la popup
         holder.colorBubble.setOnClickListener {
             OeuvrePopup(holder.colorBubble.context, oeuvre).show()
+        }
+
+        // liker ou disliker l'oeuvre
+        holder.liked.setOnClickListener {
+
+            if(oeuvre.liked){
+                holder.liked.setImageResource(R.drawable.ic_unstar)
+            }
+            else{
+                holder.liked.setImageResource(R.drawable.ic_star)
+            }
+
+            val lstOeuvres = OeuvreManager(context)
+            lstOeuvres.modifyOeuvreByName(oeuvre.name)
         }
     }
 
