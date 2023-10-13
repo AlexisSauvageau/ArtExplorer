@@ -9,11 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.alexis_hery.artexplorer.adapter.OeuvreAdapter
 import fr.alexis_hery.artexplorer.storage.OeuvreManager
 
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
-import java.nio.charset.Charset
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

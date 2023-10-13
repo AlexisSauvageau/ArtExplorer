@@ -1,15 +1,11 @@
 package fr.alexis_hery.artexplorer
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.view.Window
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import fr.alexis_hery.artexplorer.adapter.OeuvreAdapter
 
 class OeuvrePopup(
     private val context: Context,

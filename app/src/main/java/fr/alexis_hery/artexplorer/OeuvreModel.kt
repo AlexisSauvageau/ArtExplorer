@@ -1,7 +1,5 @@
 package fr.alexis_hery.artexplorer
 
-import android.graphics.Bitmap
-import android.widget.ImageView
 
 class OeuvreModel(
     val image: String ,
