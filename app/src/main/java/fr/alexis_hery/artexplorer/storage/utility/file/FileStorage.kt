@@ -1,13 +1,15 @@
 package fr.alexis_hery.artexplorer.storage.utility.file
 
 import android.content.Context
+import fr.alexis_hery.artexplorer.storage.utility.Storage
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 
-abstract class FileStorage<T>(private val context: Context, name: String, extension: String) : Storage<T> {
+abstract class FileStorage<T>(private val context: Context, name: String, extension: String) :
+    Storage<T> {
 
     private val fileName = "storage_$name.$extension"
     private var data = HashMap<Int, T>()
@@ -43,6 +45,35 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
         val writer = OutputStreamWriter(output)
         writer.write(dataToString(data))
         writer.close()
+    }
+
+    override fun insert(obj: T): Int {
+        data.put(nextId, create(nextId, obj))
+        nextId++
+        write()
+        return nextId - 1
+    }
+
+    override fun size(): Int {
+        return data.size
+    }
+
+    override fun find(id: Int): T? {
+        return data[id]
+    }
+
+    override fun findAll(): List<T> {
+        return data.toList().map { pair -> pair.second }
+    }
+
+    override fun update(id: Int, obj: T) {
+        data.put(id, create(id, obj))
+        write()
+    }
+
+    override fun delete(id: Int) {
+        data.remove(id)
+        write()
     }
 
 }
