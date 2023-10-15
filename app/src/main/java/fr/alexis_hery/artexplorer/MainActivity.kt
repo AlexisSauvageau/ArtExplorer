@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
     // fonction qui va charger les données du Recycler View
     private fun loadRecyclerView(data: OeuvreRequest){
         // liste des oeuvres
-        val lstOeuvres = data.lstOeuvres
+        val lstOeuvres = data.loadJsonData()
 
         // récupérer le recycler view
         val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)

@@ -69,8 +69,14 @@ class OeuvreAdapter(
 
         // liker ou disliker l'oeuvre
         holder.liked.setOnClickListener {
+            if(oeuvre.liked){
+                holder.liked.setImageResource(R.drawable.ic_unstar)
+            }
+            else{
+                holder.liked.setImageResource(R.drawable.ic_star)
+            }
+
             OeuvreRequest(context).likeOrDislike(oeuvre.id)
-            notifyDataSetChanged()
         }
     }
 

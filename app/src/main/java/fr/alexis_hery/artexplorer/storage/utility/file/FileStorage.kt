@@ -15,58 +15,56 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     private var data = HashMap<Int, T>()
     private var nextId = 1
 
-    init {
-        /*val jsonString = """{
-            "Data": [
-  {
-    "id": 1,
-    "image": "test.png",
-    "name": "La Joconde",
-    "description": "Tableau fait par Leonard de Vinci",
-    "type": "Peinture",
-    "liked": false
-  },
-  {
-    "id": 2,
-    "image": "test.png",
-    "name": "Star Wars",
-    "description": "Grande saga de films !",
-    "type": "Cinéma",
-    "liked": true
-  },
-  {
-    "id" : 3,
-    "image": "test.png",
-    "name": "Le Sphinx",
-    "description": "Une oeuvre intemporelle",
-    "type": "Sculpture",
-    "liked": true
-  },
-  {
-    "id": 4,
-    "image": "test.png",
-    "name": "La Joconde",
-    "description": "Tableau fait par Leonard de Vinci",
-    "type": "Peinture",
-    "liked": false
-  },
-  {
-    "id": 5,
-    "image": "test.png",
-    "name": "Star Wars",
-    "description": "Grande saga de films !",
-    "type": "Cinéma",
-    "liked": true
-  },
-  {
-    "id": 6,
-    "image": "test.png",
-    "name": "Le Sphinx",
-    "description": "Une oeuvre intemporelle",
-    "type": "Sculpture",
-    "liked": true
-  }
- ]
+    /*init {
+        val jsonString = """{
+    "1": {
+        "id": 1,
+        "image": "test.png",
+        "name": "La Joconde",
+        "description": "Tableau fait par Leonard de Vinci",
+        "type": "Peinture",
+        "liked": false
+    },
+    "2": {
+        "id": 2,
+        "image": "test.png",
+        "name": "Star Wars",
+        "description": "Grande saga de films !",
+        "type": "Cinéma",
+        "liked": true
+    },
+    "3": {
+        "id": 3,
+        "image": "test.png",
+        "name": "Le Sphinx",
+        "description": "Une oeuvre intemporelle",
+        "type": "Sculpture",
+        "liked": true
+    },
+    "4": {
+        "id": 4,
+        "image": "test.png",
+        "name": "La Joconde",
+        "description": "Tableau fait par Leonard de Vinci",
+        "type": "Peinture",
+        "liked": false
+    },
+    "5": {
+        "id": 5,
+        "image": "test.png",
+        "name": "Star Wars",
+        "description": "Grande saga de films !",
+        "type": "Cinéma",
+        "liked": true
+    },
+    "6": {
+        "id": 6,
+        "image": "test.png",
+        "name": "Le Sphinx",
+        "description": "Une oeuvre intemporelle",
+        "type": "Sculpture",
+        "liked": true
+    }
 }
 """
 
@@ -76,9 +74,9 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
             fileOutputStream.close()
         } catch (e: Exception) {
             e.printStackTrace()
-        }*/
+        }
         read()
-    }
+    }*/
 
     protected abstract fun create(id: Int, obj: T): T
     protected abstract fun dataToString(data: HashMap<Int, T>): String

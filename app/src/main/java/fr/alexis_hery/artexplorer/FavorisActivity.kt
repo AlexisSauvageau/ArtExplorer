@@ -13,7 +13,7 @@ class FavorisActivity : AppCompatActivity() {
     // fonction qui va charger les données du Recycler View
     private fun loadRecyclerView(data: OeuvreRequest){
         // liste des oeuvres
-        var lstOeuvres = data.lstOeuvres
+        var lstOeuvres = data.loadJsonData()
         lstOeuvres = ArrayList(lstOeuvres.filter { it.liked })
 
         // récupérer le recycler view
