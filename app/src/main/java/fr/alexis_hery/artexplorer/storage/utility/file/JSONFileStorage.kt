@@ -1,6 +1,7 @@
 package fr.alexis_hery.artexplorer.storage.utility.file
 
 import android.content.Context
+import org.json.JSONException
 import org.json.JSONObject
 
 abstract class JSONFileStorage<T>(context: Context, name: String) : FileStorage<T>(context, name, "json") {
@@ -15,11 +16,16 @@ abstract class JSONFileStorage<T>(context: Context, name: String) : FileStorage<
 
     override fun stringToData(value: String): HashMap<Int, T> {
         val data = HashMap<Int, T>()
-        val json = JSONObject(value)
-        val iterator = json.keys()
-        while (iterator.hasNext()) {
-            val key = iterator.next()
-            data.put(key.toInt(), jsonToObject(json.getJSONObject(key)))
+        try {
+            val jsonObject = JSONObject(value)
+            val dataArray = jsonObject.getJSONArray("Data")
+            for (i in 0 until dataArray.length()) {
+                val item = dataArray.getJSONObject(i)
+                val id = item.getInt("id")
+                data[id] = jsonToObject(item)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
         return data
     }

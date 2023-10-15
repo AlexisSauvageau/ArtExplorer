@@ -11,6 +11,18 @@ import fr.alexis_hery.artexplorer.request.OeuvreRequest
 
 class MainActivity : ComponentActivity() {
 
+    // fonction qui va charger les données du Recycler View
+    private fun loadRecyclerView(data: OeuvreRequest){
+        // liste des oeuvres
+        val lstOeuvres = data.lstOeuvres
+
+        // récupérer le recycler view
+        val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)
+
+        // créer la vue pour chaque élément
+        oeuvreRecyclerView.adapter = OeuvreAdapter(applicationContext, lstOeuvres)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,13 +36,7 @@ class MainActivity : ComponentActivity() {
         }
 
         val data = OeuvreRequest(this)
-        val lstOeuvres = data.lstOeuvres
-
-        // récupérer le recycler view
-        val oeuvreRecyclerView = findViewById<RecyclerView>(R.id.lst_oeuvres)
-
-        // créer la vue pour chaque élément
-        oeuvreRecyclerView.adapter = OeuvreAdapter(applicationContext, lstOeuvres)
+        data.getOeuvres { loadRecyclerView(data) }
 
         // récupérer la barre de navigation
         val navigation = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)

@@ -23,7 +23,8 @@ class OeuvreRequest(private val context: Context) {
         private const val URL = "http://51.68.91.213/gr-2-9/Data.json"
     }
 
-    init{
+    // fonction qui récupère les oeuvres depuis internet
+    fun getOeuvres(callback : () -> Unit){
         val queue = Volley.newRequestQueue(context)
         val request = JsonObjectRequest(
             Request.Method.GET,
@@ -31,9 +32,8 @@ class OeuvreRequest(private val context: Context) {
             null,
             {response ->
                 val oeuvreTab = response.getJSONArray("Data")
-                loadOeuvres(oeuvreTab)
+                loadOeuvres(oeuvreTab, callback)
                 refresh(response)
-                //updatable.update()
 
             },
             {error ->
@@ -46,7 +46,7 @@ class OeuvreRequest(private val context: Context) {
     }
 
     // fonction qui récupère les oeuvres en distanciel
-    private fun loadOeuvres(oeuvreTab: JSONArray) {
+    private fun loadOeuvres(oeuvreTab: JSONArray, callback : () -> Unit) {
         try {
             for (i in 0 until oeuvreTab.length()) {
                 val oeuvre = oeuvreTab.getJSONObject(i)
@@ -61,6 +61,8 @@ class OeuvreRequest(private val context: Context) {
 
                 lstOeuvres.add(oeuvreDetails)
             }
+
+            callback()
         } catch (e: JSONException) {
 
             e.printStackTrace()

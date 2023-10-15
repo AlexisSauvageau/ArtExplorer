@@ -16,6 +16,67 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     private var nextId = 1
 
     init {
+        /*val jsonString = """{
+            "Data": [
+  {
+    "id": 1,
+    "image": "test.png",
+    "name": "La Joconde",
+    "description": "Tableau fait par Leonard de Vinci",
+    "type": "Peinture",
+    "liked": false
+  },
+  {
+    "id": 2,
+    "image": "test.png",
+    "name": "Star Wars",
+    "description": "Grande saga de films !",
+    "type": "Cinéma",
+    "liked": true
+  },
+  {
+    "id" : 3,
+    "image": "test.png",
+    "name": "Le Sphinx",
+    "description": "Une oeuvre intemporelle",
+    "type": "Sculpture",
+    "liked": true
+  },
+  {
+    "id": 4,
+    "image": "test.png",
+    "name": "La Joconde",
+    "description": "Tableau fait par Leonard de Vinci",
+    "type": "Peinture",
+    "liked": false
+  },
+  {
+    "id": 5,
+    "image": "test.png",
+    "name": "Star Wars",
+    "description": "Grande saga de films !",
+    "type": "Cinéma",
+    "liked": true
+  },
+  {
+    "id": 6,
+    "image": "test.png",
+    "name": "Le Sphinx",
+    "description": "Une oeuvre intemporelle",
+    "type": "Sculpture",
+    "liked": true
+  }
+ ]
+}
+"""
+
+        try {
+            val fileOutputStream = context.openFileOutput("Data.json", Context.MODE_PRIVATE)
+            fileOutputStream.write(jsonString.toByteArray())
+            fileOutputStream.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }*/
         read()
     }
 
@@ -26,7 +87,7 @@ abstract class FileStorage<T>(private val context: Context, name: String, extens
     private fun read() {
         try {
             val input = context.openFileInput(fileName)
-            println(context.filesDir)
+            //println(context.filesDir)
             if (input != null) {
                 val builder = StringBuilder()
                 var bufferedReader = BufferedReader(InputStreamReader(input))

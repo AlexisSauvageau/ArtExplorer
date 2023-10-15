@@ -13,7 +13,6 @@ import fr.alexis_hery.artexplorer.OeuvreModel
 import fr.alexis_hery.artexplorer.OeuvrePopup
 import fr.alexis_hery.artexplorer.R
 import fr.alexis_hery.artexplorer.request.OeuvreRequest
-import fr.alexis_hery.artexplorer.storage.OeuvreManager
 
 class OeuvreAdapter(
     val context: Context,
