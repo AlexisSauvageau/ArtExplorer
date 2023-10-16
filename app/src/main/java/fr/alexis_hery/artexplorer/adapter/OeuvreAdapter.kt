@@ -36,6 +36,34 @@ class OeuvreAdapter(
         return ViewHolder(view)
     }
 
+    // fonction qui détermine la couleur de l'item
+    private fun selectColor(oeuvreType: String) : Int{
+        var color : Int = ContextCompat.getColor(context, R.color.white)
+
+        when (oeuvreType) {
+            "Peinture" -> {
+                color = ContextCompat.getColor(context, R.color.lightblue)
+            }
+            "Sculpture" -> {
+                color = ContextCompat.getColor(context, R.color.lightgreen)
+            }
+            "Cinéma" -> {
+                color = ContextCompat.getColor(context, R.color.lightpurple)
+            }
+            "Architecture" -> {
+                color = ContextCompat.getColor(context, R.color.grey)
+            }
+            "Jeu-vidéo" -> {
+                color = ContextCompat.getColor(context, R.color.red)
+            }
+            "Musique" -> {
+                color = ContextCompat.getColor(context, R.color.orange)
+            }
+        }
+
+        return color
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val oeuvre = lstOeuvres[position] // oeuvre courante
 
@@ -52,15 +80,7 @@ class OeuvreAdapter(
         }
 
         // mettre à jour la couleur de la bulle
-        if(oeuvre.type == "Peinture"){
-            holder.colorBubble.setBackgroundColor(ContextCompat.getColor(context, R.color.lightblue))
-        }
-        else if(oeuvre.type == "Sculpture"){
-            holder.colorBubble.setBackgroundColor(ContextCompat.getColor(context, R.color.lightgreen))
-        }
-        else if(oeuvre.type == "Cinéma"){
-            holder.colorBubble.setBackgroundColor(ContextCompat.getColor(context, R.color.pink))
-        }
+        holder.colorBubble.setBackgroundColor(selectColor(oeuvre.type))
 
         // afficher la popup
         holder.colorBubble.setOnClickListener {
