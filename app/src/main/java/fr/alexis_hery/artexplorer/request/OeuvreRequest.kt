@@ -2,6 +2,7 @@ package fr.alexis_hery.artexplorer.request
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
@@ -18,6 +19,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.net.URLEncoder
 
 class OeuvreRequest(private val context: Context) {
@@ -30,35 +32,40 @@ class OeuvreRequest(private val context: Context) {
 
     // fonction qui prend une image depuis internet, et l'enregistre en local
     fun getAndUploadImage(name: String){
-        val encodedName = URLEncoder.encode(name, "UTF-8")
-        val imageUrl = "http://51.68.91.213/gr-2-9/$encodedName"
+        val fileWithoutExtension = name.substring(0, name.lastIndexOf('.'))
 
-        Picasso.get().load(imageUrl).into(object : com.squareup.picasso.Target {
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                // Enregistrer l'image localement
-                val fichierImage = File(context.filesDir, name)
-                val fileOutputStream = FileOutputStream(fichierImage)
-                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
-                fileOutputStream.flush()
-                fileOutputStream.close()
-            }
+        // Enregistrer l'image localement
+        val resourceId = context.resources.getIdentifier(fileWithoutExtension, "drawable", context.packageName)
+        if (resourceId == 0) {
+            Log.e("RESSOURCE NULLE", "J'ai pas trouvé l'image")
+            return
+        }
 
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                // Gérer le cas d'échec du chargement de l'image
-                Log.e("PICASSO_ERROR", "Erreur lors du chargement de l'image: $e")
-            }
+        val inputStream: InputStream = context.resources.openRawResource(resourceId)
+        val bitmap: Bitmap = BitmapFactory.decodeStream(inputStream)
 
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                // Vous pouvez effectuer des opérations de préparation ici, si nécessaire
-            }
-        })
+        val outputFile = File(context.filesDir, name)
+
+        try {
+            Log.d("IMAGE ENREGISTREE", "J'ai enregistré l'image")
+            val fileOutputStream = FileOutputStream(outputFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            fileOutputStream.flush()
+            fileOutputStream.close()
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     // fonction qui récupère toutes les images depuis internet
     private fun getImages(jsonArray: JSONArray){
+
         for (i in 0 until jsonArray.length()) {
             val jsonObject: JSONObject = jsonArray.getJSONObject(i)
             val image = jsonObject.getString("image")
+
+            Log.d("NOM IMAGE", image)
             getAndUploadImage(image)
         }
     }
@@ -79,9 +86,9 @@ class OeuvreRequest(private val context: Context) {
                 {response ->
                     val oeuvreTab = response.getJSONArray("Data")
                     saveJsonData(oeuvreTab)
+                    Log.d("COUCOU", "yo")
                     getImages(oeuvreTab)
                     callback()
-
                 },
                 {error ->
                     Toast.makeText(context, "Requête échouée", Toast.LENGTH_SHORT).show()
