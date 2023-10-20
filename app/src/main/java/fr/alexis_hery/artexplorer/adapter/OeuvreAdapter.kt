@@ -1,6 +1,7 @@
 package fr.alexis_hery.artexplorer.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import fr.alexis_hery.artexplorer.OeuvreModel
 import fr.alexis_hery.artexplorer.OeuvrePopup
 import fr.alexis_hery.artexplorer.R
 import fr.alexis_hery.artexplorer.request.OeuvreRequest
+import java.io.File
 
 class OeuvreAdapter(
     val context: Context,
@@ -67,7 +69,18 @@ class OeuvreAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val oeuvre = lstOeuvres[position] // oeuvre courante
 
-        // holder.image.set(oeuvre.image)
+
+        // mettre à jour l'image
+        val imageFile = File(context.filesDir, oeuvre.image)
+
+        if (imageFile.exists()) {
+            // Charger l'image depuis le fichier
+            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+
+            // Afficher l'image dans l'ImageView
+            holder.image.setImageBitmap(bitmap)
+        }
+
         holder.name.text = oeuvre.name               // mettre à jour le nom
         holder.type.text = oeuvre.type               // mettre à jour le type
 

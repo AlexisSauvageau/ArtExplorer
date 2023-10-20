@@ -2,10 +2,12 @@ package fr.alexis_hery.artexplorer
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
+import java.io.File
 
 class OeuvrePopup(
     private val context: Context,
@@ -23,6 +25,16 @@ class OeuvrePopup(
     // fonction qui met à jour les infos de la popup avec celles de l'oeuvre sélectionnée
     private fun setupComponents() {
         // image
+        val image = findViewById<ImageView>(R.id.oeuvre_image)
+        val imageFile = File(context.filesDir, oeuvre.image)
+
+        if (imageFile.exists()) {
+            // Charger l'image depuis le fichier
+            val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+
+            // Afficher l'image dans l'ImageView
+            image.setImageBitmap(bitmap)
+        }
 
         // titre
         val title = findViewById<TextView>(R.id.oeuvre_title)

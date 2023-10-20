@@ -1,6 +1,8 @@
 package fr.alexis_hery.artexplorer.request
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.widget.ImageView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -11,6 +13,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class OeuvreRequest(private val context: Context) {
 
@@ -78,7 +82,6 @@ class OeuvreRequest(private val context: Context) {
             val fileOutputStream = context.openFileOutput("Data.json", Context.MODE_PRIVATE)
             fileOutputStream.write(jsonArray.toString().toByteArray())
             fileOutputStream.close()
-            //Toast.makeText(context, "Données mises à jour dans Data.json", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             Toast.makeText(context, "Erreur lors de la mise à jour des données", Toast.LENGTH_SHORT).show()
         }
@@ -113,5 +116,71 @@ class OeuvreRequest(private val context: Context) {
             e.printStackTrace()
         }
         return res
+    }
+
+
+    // fonction qui récupère l'id maximal du fichier local
+    private fun maxId(jsonArray: JSONArray) : Int{
+        var res = 0
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+            val id = jsonObject.getInt("id")
+            if(id > res){ res = id }
+        }
+        return res+1
+    }
+
+
+    // fonction qui enregistre une nouvelle image en local
+    private fun uploadImage(imageSrc: ImageView, name: String){
+        // convertir l'ImageView en Bitmap
+        val bitmap: Bitmap = Bitmap.createBitmap(imageSrc.width, imageSrc.height, Bitmap.Config.ARGB_8888)
+        val canvas = android.graphics.Canvas(bitmap)
+        imageSrc.draw(canvas)
+
+        // chemin du fichier
+        val file = File(context.filesDir, "$name.png")
+
+        try {
+            // Écrire le Bitmap dans un fichier PNG
+            val fileOutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            fileOutputStream.flush()
+            fileOutputStream.close()
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    // fonction qui enregistre une nouvelle oeuvre d'art en local
+    fun uploadOeuvre(imageSrc: ImageView, name: String, desc: String, type: String, callback : () -> Unit){
+        // enregistrer l'image
+        uploadImage(imageSrc, name)
+
+        // récupérer le fichier JSON
+        val fileInputStream = context.openFileInput("Data.json")
+        val jsonString = fileInputStream.bufferedReader().use { it.readText() }
+        val jsonArray = JSONArray(jsonString)
+
+        // ajouter la nouvelle oeuvre d'art
+        val nouvelElement = JSONObject()
+
+        // récupérer l'id maximal
+        val id = maxId(jsonArray)
+
+        nouvelElement.put("id", id)
+        nouvelElement.put("image", "$name.png")
+        nouvelElement.put("name", name)
+        nouvelElement.put("description", desc)
+        nouvelElement.put("type", type)
+        nouvelElement.put("liked", false)
+
+        jsonArray.put(nouvelElement)
+
+        // écrire le nouveau fichier
+        saveJsonData(jsonArray)
+
+        callback()
     }
 }
