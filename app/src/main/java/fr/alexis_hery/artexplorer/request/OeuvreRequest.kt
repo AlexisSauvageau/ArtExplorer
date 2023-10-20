@@ -3,14 +3,12 @@ package fr.alexis_hery.artexplorer.request
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.squareup.picasso.Picasso
 import fr.alexis_hery.artexplorer.OeuvreModel
 import org.json.JSONArray
 import org.json.JSONException
@@ -20,7 +18,6 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.net.URLEncoder
 
 class OeuvreRequest(private val context: Context) {
 
@@ -47,7 +44,6 @@ class OeuvreRequest(private val context: Context) {
         val outputFile = File(context.filesDir, name)
 
         try {
-            Log.d("IMAGE ENREGISTREE", "J'ai enregistré l'image")
             val fileOutputStream = FileOutputStream(outputFile)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
             fileOutputStream.flush()
@@ -65,7 +61,6 @@ class OeuvreRequest(private val context: Context) {
             val jsonObject: JSONObject = jsonArray.getJSONObject(i)
             val image = jsonObject.getString("image")
 
-            Log.d("NOM IMAGE", image)
             getAndUploadImage(image)
         }
     }
@@ -86,7 +81,6 @@ class OeuvreRequest(private val context: Context) {
                 {response ->
                     val oeuvreTab = response.getJSONArray("Data")
                     saveJsonData(oeuvreTab)
-                    Log.d("COUCOU", "yo")
                     getImages(oeuvreTab)
                     callback()
                 },
