@@ -2,11 +2,14 @@ package fr.alexis_hery.artexplorer.request
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import fr.alexis_hery.artexplorer.OeuvreModel
 import org.json.JSONArray
 import org.json.JSONException
@@ -15,6 +18,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.net.URLEncoder
 
 class OeuvreRequest(private val context: Context) {
 
@@ -22,6 +26,41 @@ class OeuvreRequest(private val context: Context) {
 
     companion object {
         private const val URL = "http://51.68.91.213/gr-2-9/Data.json"
+    }
+
+    // fonction qui prend une image depuis internet, et l'enregistre en local
+    fun getAndUploadImage(name: String){
+        val encodedName = URLEncoder.encode(name, "UTF-8")
+        val imageUrl = "http://51.68.91.213/gr-2-9/$encodedName"
+
+        Picasso.get().load(imageUrl).into(object : com.squareup.picasso.Target {
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                // Enregistrer l'image localement
+                val fichierImage = File(context.filesDir, name)
+                val fileOutputStream = FileOutputStream(fichierImage)
+                bitmap?.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+                fileOutputStream.flush()
+                fileOutputStream.close()
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                // Gérer le cas d'échec du chargement de l'image
+                Log.e("PICASSO_ERROR", "Erreur lors du chargement de l'image: $e")
+            }
+
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                // Vous pouvez effectuer des opérations de préparation ici, si nécessaire
+            }
+        })
+    }
+
+    // fonction qui récupère toutes les images depuis internet
+    private fun getImages(jsonArray: JSONArray){
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+            val image = jsonObject.getString("image")
+            getAndUploadImage(image)
+        }
     }
 
     // fonction qui récupère les oeuvres depuis internet (ou alors en local si le fichier existe déjà)
@@ -40,6 +79,7 @@ class OeuvreRequest(private val context: Context) {
                 {response ->
                     val oeuvreTab = response.getJSONArray("Data")
                     saveJsonData(oeuvreTab)
+                    getImages(oeuvreTab)
                     callback()
 
                 },
