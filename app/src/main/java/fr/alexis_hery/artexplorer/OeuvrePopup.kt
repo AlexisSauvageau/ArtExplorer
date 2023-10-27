@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import fr.alexis_hery.artexplorer.request.OeuvreRequest
 import java.io.File
 
 class OeuvrePopup(
@@ -52,6 +54,14 @@ class OeuvrePopup(
         val closeBtn = findViewById<ImageView>(R.id.close_popup)
         closeBtn.setOnClickListener {
             dismiss()
+        }
+
+        // supprimer l'oeuvre d'art
+        val delOeuvre = findViewById<ImageView>(R.id.delete_oeuvre)
+        delOeuvre.setOnClickListener {
+            OeuvreRequest(context).deleteOeuvre(oeuvre.id)
+            dismiss()
+            Toast.makeText(context, "Oeuvre supprimée avec succès", Toast.LENGTH_SHORT).show()
         }
     }
 

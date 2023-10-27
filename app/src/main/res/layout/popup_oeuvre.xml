@@ -54,9 +54,18 @@
         android:textColor="@color/yellow"
         android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/oeuvre_image"
+        app:layout_constraintStart_toStartOf="@+id/oeuvre_image"
+        app:layout_constraintTop_toBottomOf="@+id/oeuvre_image" />
+
+    <ImageView
+        android:id="@+id/delete_oeuvre"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oeuvre_description" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

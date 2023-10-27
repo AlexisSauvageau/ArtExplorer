@@ -224,4 +224,23 @@ class OeuvreRequest(private val context: Context) {
 
         callback()
     }
+
+    // fonction qui permet de supprimer localement une oeuvre d'art
+    fun deleteOeuvre(oeuvreId: Int){
+        val res = JSONArray()
+
+        // récupérer le fichier JSON
+        val fileInputStream = context.openFileInput("Data.json")
+        val jsonString = fileInputStream.bufferedReader().use { it.readText() }
+        val jsonArray = JSONArray(jsonString)
+
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+            val id = jsonObject.getInt("id")
+            if(id != oeuvreId) res.put(jsonObject)
+        }
+
+        // Réécrire le fichier JSON mis à jour
+        saveJsonData(res)
+    }
 }
